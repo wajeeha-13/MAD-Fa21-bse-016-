@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import WhatsAppScreen from './components/screen(1)';
+import ChatScreen from './ChatScreen';
+import CallLogScreen from './CallLogScreen';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <WhatsAppScreen />
+      <ChatScreen />
+      {/* <CallLogScreen /> */}
     </View>
   );
 }
