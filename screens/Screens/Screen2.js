@@ -1,9 +1,10 @@
 
-import React, { useState } from 'react';
-import { View, StyleSheet, Platform, Text, Image } from 'react-native';
+import React, { useState,useEffect } from 'react';
+import { View, StyleSheet, Platform, Text, Image, TouchableOpacity } from 'react-native';
 import { Checkbox } from 'expo-checkbox';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const Rectangles = () => {
+const Rectangles = ({navigation, route}) => {
     const [isChecked1, setChecked1] = useState(false);
     const [isChecked2, setChecked2] = useState(false);
     const [isChecked3, setChecked3] = useState(false);
@@ -14,6 +15,39 @@ const Rectangles = () => {
     const [isChecked8, setChecked8] = useState(false);
     const [isChecked9, setChecked9] = useState(false);
     const [isChecked10, setChecked10] = useState(false);
+    const [streakCount, setStreakCount] = useState(0);
+    const {selectedDate } = route.params;
+
+    useEffect(() => {
+        if (selectedDate !== null) {
+            // Save streak to local storage with selected date as key when streakCount changes
+            AsyncStorage.setItem(selectedDate, streakCount.toString());
+        }
+    }, [streakCount, selectedDate]);
+
+    
+
+    const updateStreakCount = () => {
+        const checkedCount = [isChecked1, isChecked2, isChecked3, isChecked4, isChecked5, isChecked6, isChecked7, isChecked8, isChecked9, isChecked10].filter(checked => checked).length;
+        if (checkedCount >= 5) {
+            setStreakCount(1);
+        } else {
+            setStreakCount(0);
+        }
+    };
+
+    useEffect(() => {
+    updateStreakCount(streakCount);
+  }, [streakCount, updateStreakCount]);
+
+  useEffect(() => {
+    const checkedCount = [isChecked1, isChecked2, isChecked3, isChecked4, isChecked5, isChecked6, isChecked7, isChecked8, isChecked9, isChecked10].filter(checked => checked).length;
+    if (checkedCount >= 5) {
+      navigation.navigate('Screen3', { streakCount:1 });
+    }
+  }, [isChecked1, isChecked2, isChecked3, isChecked4, isChecked5, isChecked6, isChecked7, isChecked8, isChecked9, isChecked10, navigation]);
+
+
 
     const handleCheck1 = () => {
         if (!isChecked1 && !isChecked2) {
@@ -204,6 +238,11 @@ const Rectangles = () => {
                 <Image source={require('../assets/img2.jpeg')} style={styles.Image2} />
             </View>
 
+            <TouchableOpacity onPress={() => navigation.navigate('Screen3', { streakCount })}>
+                <View style={styles.button}>
+                    <Text style={styles.buttonText}>Go to Screen 3</Text>
+                </View>
+            </TouchableOpacity>
         </View>
     );
 };
@@ -221,7 +260,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 15,
         borderBottomColor: 'gray',
-        marginBottom: 32,
+        marginBottom: 25,
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 16,
@@ -266,6 +305,17 @@ const styles = StyleSheet.create({
         width: 60,
         height: 60,
         marginRight:10,
+    },
+    button: {
+        backgroundColor: '#00adf5',
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 10,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 16,
     },
 });
 

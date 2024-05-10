@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableHighlight, Dimensions } from 'react-native';
+import { View, StyleSheet, Text, TouchableHighlight } from 'react-native';
 import { BarChart } from 'react-native-chart-kit';
 
 const ThreeItemsInRow = () => {
@@ -13,20 +13,18 @@ const ThreeItemsInRow = () => {
         setHoveredIndex(null);
     };
 
-
-
+    // Dynamic data for the bar chart based on prayer times
     const data = {
         labels: ['Fajr','Zuhr','Asr','Maghrib','Isha'],
         datasets: [
             {
-                data: [0.1,0.4,0.8,1.2,1.6],
+                data: [1, 2, 3, 4, 5], // Update with your prayer data
                 colors: [
                     (opacity=1) => '#0000FF',
                     (opacity=1) => '#008000',
-                    (opacity=1) => '#FFFF00',
+                    (opacity=1) => '#FFA500',
                     (opacity=1) => '#FF0000',
-                    (opacity=1) => '#800080',
-                    
+                    (opacity=1) => '#800080',   
                 ],
                 
             },
@@ -56,29 +54,28 @@ const ThreeItemsInRow = () => {
                 ))}
             </View>
             <View style={styles.containergraph}>
-            <BarChart
-                data={data}
-                width={330}
-                height={250}
-                chartConfig={{
-                    backgroundGradientFrom: "#ffffff",
-                    backgroundGradientFromOpacity: 0,
-                    backgroundGradientTo: "#ffffff",
-                    backgroundGradientToOpacity: 0.5,
-                    color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-                    strokeWidth: 2,
-                    barPercentage: 0.5,
-                    useShadowColorFromDataset: false,
-                }}
-                withHorizontalLabels={true}
-                withCustomBarColorFromData={true}
-                flatColor={true}
-                withInnerLines={false}
-                showBarTops={false}
-                fromZero={true}
-            />
-        </View>
-
+                <BarChart
+                    data={data}
+                    width={330}
+                    height={250}
+                    chartConfig={{
+                        backgroundGradientFrom: "#ffffff",
+                        backgroundGradientFromOpacity: 0,
+                        backgroundGradientTo: "#ffffff",
+                        backgroundGradientToOpacity: 0.5,
+                        color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                        strokeWidth: 2,
+                        barPercentage: 0.5,
+                        useShadowColorFromDataset: false,
+                    }}
+                    withHorizontalLabels={true}
+                    withCustomBarColorFromData={true}
+                    flatColor={true}
+                    withInnerLines={false}
+                    showBarTops={false}
+                    fromZero={true}
+                />
+            </View>
 
             <View style={styles.container5}>
                 <View style={styles.square1} />
@@ -92,7 +89,7 @@ const ThreeItemsInRow = () => {
                 <View style={styles.square5} />
                 <Text >Isha</Text>
             </View>
-             <Text style={styles.lasttext}>You Offered 0 out 05 35</Text>
+            <Text style={styles.lasttext}>You Offered 0 out 05 35</Text>
         </View>
     );
 };
@@ -103,15 +100,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         paddingHorizontal: 20,
-        marginTop: 30
-
+        marginTop: 30,
     },
     containergraph: {
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
-        marginTop:50,
+        marginTop: 50,
     },
     container5:{
      flexDirection:'row',
@@ -121,7 +117,6 @@ const styles = StyleSheet.create({
      justifyContent:'space-evenly',
      top:40,
      marginTop:270,
-     
     },
     item: {
         width: 100,
@@ -146,14 +141,12 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#4169E1',
     },
-
     square1: {
         width: 20,
         height: 20,
         backgroundColor: '#0000FF',
         marginRight: 10,
         borderRadius: 3,
-      
     },
     square2: {
         width: 20,
@@ -162,7 +155,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 3,
         marginStart:10,
-
     },
     square3: {
         width: 20,
@@ -171,7 +163,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 3,
         marginStart:10,
-
     },
     square4: {
         width: 20,
@@ -180,8 +171,6 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 3,
         marginStart:10,
-
-
     },
     square5: {
         width: 20,
@@ -190,8 +179,7 @@ const styles = StyleSheet.create({
         marginRight: 10,
         borderRadius: 3,
         marginStart:7,
-
-        },
+    },
     lasttext:{
         fontSize:25,
         color:'black',

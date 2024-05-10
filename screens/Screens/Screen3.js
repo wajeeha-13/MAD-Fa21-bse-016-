@@ -1,13 +1,17 @@
 import React from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, Platform } from 'react-native';
+import Rectangles from './Screen2';
 
-const StreakScreen = ( ) => {
-    const [streakCount, setStreakCount] = React.useState(0);
+
+const StreakScreen = ({ route,navigation}) => {
+    const {streakCount}=route.params;
+
 
     const handlePress = () => {
-        setStreakCount(streakCount + 1);
-
-    };
+        // Define the logic for handling the press event here
+        navigation.navigate('Screen4');
+      };
+      
 
     return (
         <View style={styles.container}>
